@@ -2,11 +2,13 @@
 
 #include <algorithm>
 #include <cctype>
+#include <functional>
 #include <cstdint>
-#include <set>
 
 #include "utils/EyePatterns.hpp"
 #include "utils/FunctionTracer.hpp"
+
+using ColorIterator = std::vector<uint8_t>::iterator;
 
 namespace {
 
@@ -14,44 +16,53 @@ bool isPrettyRed(uint8_t pixelRedValue) {
   return pixelRedValue >= 200;
 }
 
+void actOnPattern(
+        const EyePattern& pattern,
+        const std::function<bool(int32_t row, int32_t col)>& onPixel) {
+  bool run = true;
+
+  for (int32_t row = 0; run && (row < EYE_PATTERN_COL_SIZE); row++) {
+    for (int32_t col = 0; run && (col < EYE_PATTERN_COL_SIZE); col++) {
+      if (!isspace((pattern)[row][col])) {
+        run = onPixel(row, col);
+      }
+    }
+  }
+}
+
 } // Anonymous namespace
 
 void Solution::compute(std::vector<StrideImage> &images) {
   FunctionTracer<std::chrono::milliseconds> tracer("compute", "ms");
 
-  using PixelIterator = std::vector<uint8_t>::iterator;
-
   for (auto & img : images) {
-    PixelIterator redPixel = img.redPixels.begin();
-    const PixelIterator end = img.redPixels.end();
+    ColorIterator redPixel = img.redPixels.begin();
+    const ColorIterator end = img.redPixels.end();
 
-    auto next = [end](PixelIterator& redPixel) {
-      redPixel = std::find_if(redPixel + 1, end, isPrettyRed);
-      return redPixel;
+    auto next = [end](ColorIterator& redPixel) {
+      return ( redPixel = std::find_if(redPixel + 1, end, isPrettyRed) );
     };
 
     while (next(redPixel) != end) {
-      // Look for pattern
-      for (auto pattern = EYE_PATTERNS.rbegin(); pattern < EYE_PATTERNS.rend(); pattern++) {
+      for (auto pattern = EYE_PATTERNS.rbegin();
+                pattern < EYE_PATTERNS.rend();
+                pattern++) {
+
+        const size_t rowLen = img.resolution.width;
         bool match = true;
 
-        for (int32_t row = 0; match && (row < EYE_PATTERN_COL_SIZE); row++) {
-          for (int32_t col = 0; match && (col < EYE_PATTERN_COL_SIZE); col++) {
-            if (!isspace((*pattern)[row][col]) &&
-                !isPrettyRed(redPixel[(img.resolution.width * row) + col])) {
-              match = false;
-            }
-          }
-        }
+        actOnPattern(*pattern, [&](int32_t row, int32_t col) {
+          match = isPrettyRed(redPixel[(rowLen * row) + col]);
+          return match;
+        });
 
         if (match) {
-          for (int32_t row = 0; match && (row < EYE_PATTERN_COL_SIZE); row++) {
-            for (int32_t col = 0; match && (col < EYE_PATTERN_COL_SIZE); col++) {
-              if (!isspace((*pattern)[row][col])) {
-                redPixel[(img.resolution.width * row) + col] -= 150;
-              }
-            }
-          }
+          actOnPattern(*pattern, [&](int32_t row, int32_t col) {
+            redPixel[(rowLen * row) + col] -= 150;
+            return true;
+          });
+
+          break;
         }
       }
     }
