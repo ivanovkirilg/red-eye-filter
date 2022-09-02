@@ -1,11 +1,11 @@
-#ifndef IMAGE_H_
-#define IMAGE_H_
+#ifndef RED_EYE_UTILS_IMAGE
+#define RED_EYE_UTILS_IMAGE
 
 #include <cstdint>
 #include <vector>
 #include <iosfwd>
 
-#include "CommonDefines.h"
+#include "CommonDefines.hpp"
 
 struct PackedImage {
   PackedImage(const Resolution& res);
@@ -30,4 +30,4 @@ struct StrideImage {
   std::vector<uint8_t> alphaPixels;
 };
 
-#endif /* IMAGE_H_ */
+#endif // RED_EYE_UTILS_IMAGE

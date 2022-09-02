@@ -1,7 +1,8 @@
-#ifndef SOLUTIONEVALUATOR_H_
-#define SOLUTIONEVALUATOR_H_
+#ifndef RED_EYE_UTILS_SOLUTION_EVALUATOR
+#define RED_EYE_UTILS_SOLUTION_EVALUATOR
 
 #include <cstdint>
+#include <iostream>
 #include <vector>
 
 template <typename T>
@@ -32,4 +33,4 @@ public:
   }
 };
 
-#endif /* SOLUTIONEVALUATOR_H_ */
+#endif // RED_EYE_UTILS_SOLUTION_EVALUATOR

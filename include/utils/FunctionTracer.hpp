@@ -1,5 +1,5 @@
-#ifndef FUNCTIONTRACER_H_
-#define FUNCTIONTRACER_H_
+#ifndef RED_EYE_UTILS_FUNCTION_TRACER
+#define RED_EYE_UTILS_FUNCTION_TRACER
 
 #include <chrono>
 #include <string>
@@ -32,4 +32,4 @@ private:
   std::string mPostfix;
 };
 
-#endif /* FUNCTIONTRACER_H_ */
+#endif // RED_EYE_UTILS_FUNCTION_TRACER

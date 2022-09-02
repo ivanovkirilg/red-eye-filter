@@ -1,5 +1,5 @@
-#ifndef FILEPARSER_H_
-#define FILEPARSER_H_
+#ifndef RED_EYE_UTILS_FILE_PARSER
+#define RED_EYE_UTILS_FILE_PARSER
 
 #include <string>
 #include <vector>
@@ -7,8 +7,8 @@
 #include <sstream>
 #include <iostream>
 
-#include "CommonDefines.h"
-#include "FunctionTracer.h"
+#include "CommonDefines.hpp"
+#include "FunctionTracer.hpp"
 
 namespace {
 void clearValues(std::string &line, std::istringstream &istr) {
@@ -90,4 +90,4 @@ public:
   }
 };
 
-#endif /* FILEPARSER_H_ */
+#endif // RED_EYE_UTILS_FILE_PARSER

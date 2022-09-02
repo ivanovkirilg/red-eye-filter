@@ -1,5 +1,5 @@
-#ifndef UTILS_EYEPATTERNS_H_
-#define UTILS_EYEPATTERNS_H_
+#ifndef RED_EYE_UTILS_EYE_PATTERNS
+#define RED_EYE_UTILS_EYE_PATTERNS
 
 #include <array>
 #include <string>
@@ -45,4 +45,4 @@ constexpr std::array<EyePattern, EYE_PATTERNS_COUNT> EYE_PATTERNS {
   EYE_PATTERN_1, EYE_PATTERN_2, EYE_PATTERN_3, EYE_PATTERN_4
 };
 
-#endif /* UTILS_EYEPATTERNS_H_ */
+#endif // RED_EYE_UTILS_EYE_PATTERNS
