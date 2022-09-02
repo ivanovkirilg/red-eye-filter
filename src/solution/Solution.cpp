@@ -16,11 +16,6 @@ namespace
   }
 }
 
-void Solution::compute([[maybe_unused]]std::vector<PackedImage> &images)
-{
-  FunctionTracer<std::chrono::milliseconds> tracer("compute", "ms");
-}
-
 void Solution::compute(std::vector<StrideImage> &images)
 {
   FunctionTracer<std::chrono::milliseconds> tracer("compute", "ms");

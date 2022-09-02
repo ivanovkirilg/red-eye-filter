@@ -7,7 +7,7 @@
 
 class Solution {
 public:
-  void compute(std::vector<PackedImage> &images);
+  void compute(std::vector<PackedImage> &images) = delete;
   void compute(std::vector<StrideImage> &images);
 };
 
